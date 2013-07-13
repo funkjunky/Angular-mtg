@@ -1,0 +1,17 @@
+TODO
+---
+- Gathering intel
+	- make sure i can get all the card data, preferably from that program.
+	- check the format of the code data, if json then perfect, if not, then write a script to convert the data to json
+	- figure out how the images work and make sure they are downloaded.
+- start an angular app
+	- first, figure out how to minimize the folder structure and complexity
+	- start an angular app that will use the data to show a card or a paginated list of cards [tooltip be all the card text, decently formatted, and links tot he card by clicking it]
+- write the sealed pool app
+- write the deck builder
+	[filter: custom cardpool (ie. sealed/draft), block, type2, modern, all, etc.]
+	[autocomplete field for adding cards, then card name, with main(3)|side(1) buttons for choosing how many mainboard or sideboard]
+	[text box below, that shows the deck is text format similar to tappedout, but all in one textbox with headings]
+- figure out how the draft tool will work seamlessly [with netowkring and such]
+- write the draft tool
+- test the draft tool with 2 different computers of my own. Use a proxy if it happens to be necessary.
