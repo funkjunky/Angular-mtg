@@ -14,9 +14,45 @@ angular.module('magicviewer', ['magicviewerServices'])
 function builderCtrl($scope, $http, Cards)
 {
 	$scope.cards = Cards.query();
+	$scope.cardpool = [];
 	$http.get('magicsets/M14Names.json').success(function(data) {
-		$scope.cardpool = data;
+		$scope.cardsavailable = data;
 	});
+	$scope.addCardToPool = function() {
+		console.log($scope.newcard);
+		for(var i=0; i!=$scope.cards.length; ++i)
+			if($scope.cards[i].name == $scope.newcard)
+			{
+				$scope.cardpool.push($.extend({}, $scope.cards[i], {db_main:4, db_side:0, db_maybe:0}));
+				break;
+			}
+
+		console.log("Added card, new cardpool:");
+		console.log($scope.cardpool);
+	};
+	$scope.incrementMain = function(card) {
+		if(card.db_side <= 0)
+			return;
+
+		++card.db_main;
+		--card.db_side;
+	};
+	$scope.incrementSide = function(card) {
+		if(card.db_main <= 0)
+			return;
+
+		++card.db_side;
+		--card.db_main;
+	};
+	$scope.maybeAll = function(card) {
+		card.db_maybe = card.db_side + card.db_main;
+		card.db_main = 0;
+		card.db_side = 0;
+	};
+	$scope.mainAllMaybe = function(card) {
+		card.db_main = card.db_maybe;
+		card.db_maybe = 0;
+	};
 }
 
 function CardListCtrl($scope, Cards)

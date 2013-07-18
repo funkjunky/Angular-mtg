@@ -1,16 +1,6 @@
 TODO
 ---
 - write the deck builder
-	- write the partial for the builder
-		-pass an array of strings of the card pool.
-		- add autocomplete for cards with add button
-		-commit everything to git... haven't done this in a while >>;;
-	- create partial for buildercard.html, uses card.html, but adds a main, side, and hide button
-		- autocomplete add button should spawn one of these, just inline.
-		- add, side, and main update models
-			-hidden cards are put under their colour header in text somewhere out of the way.
-			-mainboard cards get full view, while sideboard cards are hidden under a banner that can be expanded [but still shows the names of the sideboard cards]
-			-also all "just card names" have a tooltip that shows the full card on hover or something.
 	- add the textboxes for main and sideboard
 		-add the filter that takes the models and turns them into text
 		-add the onchange to update the models by the text
@@ -26,8 +16,4 @@ TODO
 	[use index of card number and set combined]
 - replicate pouchDB to couchDB on server
 - figure out if we should even have a serverside? If so how to do it minimilistically??? perhaps with nodejs. Keep in mind we may want semantic value without js... so html served straight up. Technically the drafter could be done without js at all, just requests.
-
-FUTURE SCOPE
-
--write runners for everything. Runners are pretty cool.
-[filter: custom cardpool (ie. sealed/draft), block, type2, modern, all, etc.]
+-fix all issues in the issues list.

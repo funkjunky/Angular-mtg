@@ -1,0 +1,6 @@
+<span id="cardchoice">
+	<span ng-include src="'partials/card.html'"></span><br />
+	<button ng-click="incrementMain(card)" >Main<span>({{card.db_main}})</span></button><button ng-click="incrementSide(card)">Side<span>({{card.db_side}})</span></button>
+	<button ng-click="maybeAll(card)" >Hide</button>
+	<button ng-click="mainAllMaybe(card)" >UnHide</button>
+</span>

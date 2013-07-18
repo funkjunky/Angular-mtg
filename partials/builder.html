@@ -1,8 +1,21 @@
 <div id="addCardDiv">
-	<input type="text" data-provide="typeahead" data-source="{{ cardpool }}" autocomplete="off"> <button>Add</button>
+	<input type="text" ng-model='newcard' data-provide="typeahead" data-source="{{cardsavailable}}" autocomplete="off"> <button ng-click='addCardToPool()'>Add</button>
 </div>
 <div id="deckModDiv">
-	<div id="visualModDiv"></div>
+	<div id="visualModDiv">
+
+		<div id="visualMainboard" ng-repeat="card in cardpool">
+			<span ng-include src="'partials/buildercard.html'"></span>
+		</div>
+		<!--
+		<div id="visualSideboard" ng-repeat="card in cardpool">
+			<div ng-include src="'partials/buildercard.html'"></div>
+		</div>
+		<div id="visualHidden" ng-repeat="card in cardpool">
+			<div ng-include src="'partials/buildercard.html'"></div>
+		</div>
+		-->
+	</div>
 	<div id="textModDiv"></div>
 	<button>Save</button>
 </div>
