@@ -1,0 +1,10 @@
+<div>
+	<div class="cardimage" ng-hide="togglez" style="width:199px;height:285px;"><img src="magicimgs/{{card.set_code}}/{{card.name}}.jpg"></img></div>
+<div class="cardtext" ng-show="togglez" style="width:199px;height:285px;">
+{{card.name}} - {{card.manacost}}<br />
+{{card.type}} - {{card.rarity}}<br />
+{{card.ability}}
+</div>
+<!--the ng-model, probably doesn't need to be so unique... create a scope-->
+<div><input type="checkbox" id="toggle_{{card.id}}" ng-model="togglez" /><label for="toggle_{{card.id}}">Text</label> - <span>{{card.rating}}</span></div>
+</div>

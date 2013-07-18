@@ -1,17 +1,33 @@
 TODO
 ---
-- Gathering intel
-	- make sure i can get all the card data, preferably from that program.
-	- check the format of the code data, if json then perfect, if not, then write a script to convert the data to json
-	- figure out how the images work and make sure they are downloaded.
-- start an angular app
-	- first, figure out how to minimize the folder structure and complexity
-	- start an angular app that will use the data to show a card or a paginated list of cards [tooltip be all the card text, decently formatted, and links tot he card by clicking it]
-- write the sealed pool app
 - write the deck builder
-	[filter: custom cardpool (ie. sealed/draft), block, type2, modern, all, etc.]
-	[autocomplete field for adding cards, then card name, with main(3)|side(1) buttons for choosing how many mainboard or sideboard]
-	[text box below, that shows the deck is text format similar to tappedout, but all in one textbox with headings]
+	- write the partial for the builder
+		-pass an array of strings of the card pool.
+		- add autocomplete for cards with add button
+		-commit everything to git... haven't done this in a while >>;;
+	- create partial for buildercard.html, uses card.html, but adds a main, side, and hide button
+		- autocomplete add button should spawn one of these, just inline.
+		- add, side, and main update models
+			-hidden cards are put under their colour header in text somewhere out of the way.
+			-mainboard cards get full view, while sideboard cards are hidden under a banner that can be expanded [but still shows the names of the sideboard cards]
+			-also all "just card names" have a tooltip that shows the full card on hover or something.
+	- add the textboxes for main and sideboard
+		-add the filter that takes the models and turns them into text
+		-add the onchange to update the models by the text
+	- add save button [it wont do anything]
+-git commit to master, then branch to dev for future development.
+- write the sealed pool app
+	- basically, we'll choose the cards for the packs, then show them to the user, then provide a button that the user can press to be brought to the deck building page with the pool as the pool, and all cards in the pool are put in the sideboard to start.
+- write a node app that can server the pages, also that gives a service to save decks, and can server the json files and images.
 - figure out how the draft tool will work seamlessly [with netowkring and such]
 - write the draft tool
 - test the draft tool with 2 different computers of my own. Use a proxy if it happens to be necessary.
+- convert everything to use pouchDB
+	[use index of card number and set combined]
+- replicate pouchDB to couchDB on server
+- figure out if we should even have a serverside? If so how to do it minimilistically??? perhaps with nodejs. Keep in mind we may want semantic value without js... so html served straight up. Technically the drafter could be done without js at all, just requests.
+
+FUTURE SCOPE
+
+-write runners for everything. Runners are pretty cool.
+[filter: custom cardpool (ie. sealed/draft), block, type2, modern, all, etc.]
