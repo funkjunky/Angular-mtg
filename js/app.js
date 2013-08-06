@@ -11,6 +11,10 @@ angular.module('magicviewer', ['magicviewerServices'])
 			.otherwise({redirectTo: '/m14'});
 	}]);
 
+function sealedCtrl($scope, Pack)
+{
+}
+
 function builderCtrl($scope, $http, Cards)
 {
 	$scope.cards = Cards.query();
