@@ -8,7 +8,7 @@ angular.module('magicviewer', ['magicviewerServices'])
 			.when('/builder', {templateUrl: "partials/builder.html", controller: builderCtrl})
 			.when('/:set', {templateUrl: "partials/cardlist.html", controller: CardListCtrl})
 			.when('/:set/:cardnum', {templateUrl: "partials/card.html", controller: CardDetailCtrl})
-			.otherwise({redirectTo: '/m14'});
+			.otherwise({redirectTo: '/builder'});
 	}]);
 
 function sealedCtrl($scope, Pack)
@@ -17,11 +17,11 @@ function sealedCtrl($scope, Pack)
 
 function builderCtrl($scope, $http, Cards)
 {
-	$scope.cards = Cards.query();
-	$scope.cardpool = [];
+	$scope.cardpool = Cards.query({}, function() {console.log($scope.cardpool);}, function() { console.log("failure");});
 	$http.get('magicsets/M14Names.json').success(function(data) {
 		$scope.cardsavailable = data;
 	});
+	/*
 	$scope.addCardToPool = function() {
 		console.log($scope.newcard);
 		for(var i=0; i!=$scope.cards.length; ++i)
@@ -34,6 +34,7 @@ function builderCtrl($scope, $http, Cards)
 		console.log("Added card, new cardpool:");
 		console.log($scope.cardpool);
 	};
+	*/
 	$scope.incrementMain = function(card) {
 		if(card.db_side <= 0)
 			return;

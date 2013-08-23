@@ -4,12 +4,15 @@
 <div id="deckModDiv" class="span12 inset_header">
 	<div class="row"> <!-- necessary for grid system... :( -->
 	<div id="visualModDiv" class="span8">
-		<div id="visualMainboard" ng-repeat="card in cardpool">
-			<span ng-include src="'partials/buildercard.html'"></span>
+		<h3>Mainboard</h3>
+		<div id="visualMainboard">
 		</div>
+		<h3>Sideboard</h3>
 		<div id="visualSideboard">
 		</div>
-		<div id="visualHidden">
+		<h3>Pool</h3>
+		<div id="visualPool" ng-repeat="card in cardpool">
+			<span ng-include src="'partials/buildercard.html'"></span>
 		</div>
 	</div>
 	<div id="textModDiv" class="span4">
