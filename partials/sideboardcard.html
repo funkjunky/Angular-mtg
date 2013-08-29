@@ -1,0 +1,6 @@
+<span class="cardchoice {{card.id}}">
+	<h3 class="instanceCount"></h3>
+	<span ng-include src="'partials/card.html'"></span><br />
+	<button ng-click="addToSide(card)" >+1 Side<span></span></button><button ng-click="moveToMain(card)">&lt;- Main<span></span></button>
+	<button ng-click="removeFromSide(card)" >Remove</button>
+</span>

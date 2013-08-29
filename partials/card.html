@@ -1,6 +1,6 @@
-<div>
-	<div class="cardimage" ng-hide="togglez" style="width:199px;height:285px;"><img src="magicimgs/{{card.set_code}}/{{card.name}}.jpg"></img></div>
-<div class="cardtext" ng-show="togglez" style="width:199px;height:285px;">
+<div ng-init="applyStacking()">
+	<div ng-hide="togglez" style="width:199px;height:285px;"><img src="magicimgs/{{card.set_code}}/{{card.name}}.jpg"></img></div>
+<div ng-show="togglez" style="width:199px;height:285px;">
 {{card.name}} - {{card.manacost}}<br />
 {{card.type}} - {{card.rarity}}<br />
 {{card.ability}}

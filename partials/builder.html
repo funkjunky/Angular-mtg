@@ -1,23 +1,26 @@
 <div id="addCardDiv" class="inset_header span6">
 	<input type="text" ng-model='newcard' data-provide="typeahead" data-source="{{cardsavailable}}" autocomplete="off"> <button ng-click='addCardToPool()'>Add</button>
 </div>
+<label for="stacker">Stack Cards</label><input id="stacker" ng-model="isStacked" ng-change="applyStacking()" type="checkbox" />
 <div id="deckModDiv" class="span12 inset_header">
 	<div class="row"> <!-- necessary for grid system... :( -->
-	<div id="visualModDiv" class="span8">
+	<div class="span8">
 		<h3>Mainboard</h3>
 		<div id="visualMainboard">
+			<span ng-include ng-repeat="card in mainboard" src="'partials/mainboardcard.html'"></span>
 		</div>
 		<h3>Sideboard</h3>
 		<div id="visualSideboard">
+			<span ng-include ng-repeat="card in sideboard" src="'partials/sideboardcard.html'"></span>
 		</div>
 		<h3>Pool</h3>
-		<div id="visualPool" ng-repeat="card in cardpool">
-			<span ng-include src="'partials/buildercard.html'"></span>
+		<div id="visualPool" ng-repeat="card in pool">
+			<span ng-include src="'partials/poolcard.html'"></span>
 		</div>
 	</div>
-	<div id="textModDiv" class="span4">
-		<textarea rows="8" class="input-block-level">{{cardpool | textmain}}</textarea><br />
-		<textarea rows="8" class="input-block-level">{{cardpool | textside}}</textarea><br />
+	<div class="span4">
+		<textarea rows="8" class="input-block-level" textboardz ng-model="mainboard"></textarea><br />
+		<textarea rows="8" class="input-block-level" textboardz ng-model="sideboard"></textarea><br />
 	</div>
 	</div>
 	<button>Save</button>

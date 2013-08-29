@@ -2,7 +2,9 @@
 
 /* App Module */
 
-angular.module('magicviewer', ['magicviewerServices'])
+var _nameToIndex = {};
+
+angular.module('magicviewer', ['magicviewerServices', 'magicviewerDirectives'])
 	.config(['$routeProvider', function($routeProvider) {
 		$routeProvider
 			.when('/builder', {templateUrl: "partials/builder.html", controller: builderCtrl})
@@ -17,47 +19,87 @@ function sealedCtrl($scope, Pack)
 
 function builderCtrl($scope, $http, Cards)
 {
-	$scope.cardpool = Cards.query({}, function() {console.log($scope.cardpool);}, function() { console.log("failure");});
-	$http.get('magicsets/M14Names.json').success(function(data) {
-		$scope.cardsavailable = data;
+	$scope.pool = Cards.query({}, function() {
+		//This is a map, so we can get the pool's array index from a card name.
+		//Necessary when turning getting cards using the text board from the pool.
+		for(var i=0; i!=$scope.pool.length; ++i)
+			_nameToIndex[$scope.pool[i].name] = i;
 	});
-	/*
-	$scope.addCardToPool = function() {
-		console.log($scope.newcard);
-		for(var i=0; i!=$scope.cards.length; ++i)
-			if($scope.cards[i].name == $scope.newcard)
+	$scope.mainboard = [];
+	$scope.sideboard = [];
+
+	$scope.addToMain = function(card) {
+		//$scope.mainboard.push(card), but with a clone attached.
+		//The problem is $watch compares the variables, and the array reference
+		//doesn't change, even if the array changes. A better soln would be to
+		//somehow tell it to check the length property, but that wouldn't handle
+		//all cases either... I unno...
+		$scope.mainboard = $scope.mainboard.concat([card]);
+	};
+	$scope.addToSide = function(card) {
+		$scope.sideboard = $scope.sideboard.concat([card]);
+	};
+	$scope.moveToSide = function(card) {
+		$scope.removeFromMain(card);
+		$scope.sideboard = $scope.sideboard.concat([card]);
+	};
+	$scope.moveToMain = function(card) {
+		$scope.removeFromSide(card);
+		$scope.mainboard = $scope.mainboard.concat([card]);
+	};
+	$scope.removeFromSide = function(card) {
+		for(var i=0; i < $scope.sideboard.length; ++i)
+			if($scope.sideboard[i] == card)
 			{
-				$scope.cardpool.push($.extend({}, $scope.cards[i], {db_main:4, db_side:0, db_maybe:0}));
-				break;
+				$scope.sideboard.splice(i, 1);
+				return $scope.sideboard = $scope.sideboard.concat([]);
 			}
+	};
+	$scope.removeFromMain = function(card) {
+		for(var i=0; i < $scope.mainboard.length; ++i)
+			if($scope.mainboard[i] == card)
+			{
+				$scope.mainboard.splice(i, 1);
+				return $scope.mainboard = $scope.mainboard.concat([]);
+			}
+	};
 
-		console.log("Added card, new cardpool:");
-		console.log($scope.cardpool);
+	var unstack = function() {
+		$(".cardchoice").show();
+		$(".instanceCount").text("");
 	};
-	*/
-	$scope.incrementMain = function(card) {
-		if(card.db_side <= 0)
-			return;
 
-		++card.db_main;
-		--card.db_side;
-	};
-	$scope.incrementSide = function(card) {
-		if(card.db_main <= 0)
-			return;
+	$scope.applyStacking = function() {
+		if(!$scope.isStacked)
+			return unstack();
+		
+		for(var i=0; i!=$scope.mainboard.length; ++i)
+		{
+			var instances = $("#visualMainboard").find("."+$scope.mainboard[i].id);
+			console.log(instances);
+			instances.each(function(i, el) {
+				if(i > 0)
+					return $(this).hide();
 
-		++card.db_side;
-		--card.db_main;
+				$(this).show()
+					.find(".instanceCount").text(instances.length + " Total");
+			});
+		}
+		for(var i=0; i!=$scope.sideboard.length; ++i)
+		{
+			var instances = $("#visualSideboard").find("."+$scope.sideboard[i].id);
+			console.log(instances);
+			instances.each(function(i, el) {
+				if(i > 0)
+					return $(this).hide();
+
+				$(this).show()
+					.find(".instanceCount").text(instances.length + " Total");
+			});
+		}
 	};
-	$scope.maybeAll = function(card) {
-		card.db_maybe = card.db_side + card.db_main;
-		card.db_main = 0;
-		card.db_side = 0;
-	};
-	$scope.mainAllMaybe = function(card) {
-		card.db_main = card.db_maybe;
-		card.db_maybe = 0;
-	};
+	$scope.$watch("mainboard", $scope.applyStacking, true);
+	$scope.$watch("sideboard", $scope.applyStacking, true);
 }
 
 function CardListCtrl($scope, Cards)

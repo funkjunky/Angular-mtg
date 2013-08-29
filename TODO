@@ -1,11 +1,6 @@
 TODO
 ---
-**get angular app, up to speed**
-
- - get the cards to be added in the same way I do it in BB and meteor.
- - make sure the textboard works
- - try and clean up the code.
-
+- reevaluate the TODO list... if need be... depends what framework im using.
 
 ****
 - add markup to my blog, for my next blog post. [also, fix the whole overflow issue, perhaps just replace \n with <br />, or wrap in div... I dunno... query the community on the issue]
